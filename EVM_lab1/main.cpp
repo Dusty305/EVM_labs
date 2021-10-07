@@ -23,49 +23,82 @@ unsigned char changeUChar(unsigned char uc, const int number, const int value);
 unsigned char changeUCharBits(unsigned char uc);
 long double changeLDoubleBits(long double ld);
 
+int menu()
+{
+	int key;
+	string emptyStr;
+
+	do
+    {
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "\nEnter Unsigned char or Long double(enter 0 or 1):\n";
+        cin >> key;
+		cout << "\n";
+        getline(cin, emptyStr);
+
+    } while (cin.fail() || !emptyStr.empty() || key > 1 || key < 0);
+
+	return key;
+	
+}
+
 int main()
 {
 	int uc;
 	string emptyStr;
 
-	cout << "======Unsigned char======\n";
+	switch (menu())
+	{
+	case 0:
+		cout << "======Unsigned char======\n";
 
-	do
-    {
-        if (cin.fail())
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        cout << "\nWrite first num(unsigned char 0..255): " << endl;
-        cin >> uc;
-        getline(cin, emptyStr);
+		do
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+			cout << "\nWrite first num(unsigned char 0..255): " << endl;
+			cin >> uc;
+			getline(cin, emptyStr);
 
-    } while (cin.fail() || !emptyStr.empty() || uc > 255 || uc < 0);
+		} while (cin.fail() || !emptyStr.empty() || uc > 255 || uc < 0);
+		
+		(unsigned char)uc;
+		
+		cout << "\n";
+		changeUCharBits(uc);
+
+		break;
+	case 1:
+		cout << "\n======Long double======\n";
+		long double ld;
+		do
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+			cout << "\nWrite second num(long double): " << endl;
+			cin >> ld;
+			getline(cin, emptyStr);
+
+		} while (cin.fail() || !emptyStr.empty());
+
+		cout << "\n";
+		changeLDoubleBits(ld);
+
+		break;
+	default:
+		break;
+	}
 	
-	(unsigned char)uc;
-	
-	cout << "\n";
-	changeUCharBits(uc);
-
-	cout << "\n======Long double======\n";
-	long double ld;
-	do
-    {
-        if (cin.fail())
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        cout << "\nWrite second num(long double): " << endl;
-        cin >> ld;
-        getline(cin, emptyStr);
-
-    } while (cin.fail() || !emptyStr.empty());
-
-	cout << "\n";
-	changeLDoubleBits(ld);
-
 	return 0;
 }
 
